@@ -10,6 +10,32 @@ if (Meteor.isClient) {
         console.log("You pressed the button");
     }
   });
+
+  Template.sound.events({
+    'click button': function() {
+      window.URL = window.URL || window.webkitURL;
+      navigator.getMedia = navigator.getUserMedia ||
+                            navigator.webkitGetUserMedia ||
+                            navigator.mozGetUserMedia ||
+                            navigator.msGetUserMedia;
+      navigator.getMedia(
+      {
+        video: false,
+        audio: true
+      },
+
+      function(localMediaStream){
+        var audio = document.querySelector('audio');
+        audio.src = window.URL.createObjectURL(localMediaStream);
+        audio.onloadedmetadata = function(e){
+          console.log(e);
+        };
+      },
+      function(err){
+        console.log("error: ", err);
+      });
+    }
+  });
 }
 
 if (Meteor.isServer) {
