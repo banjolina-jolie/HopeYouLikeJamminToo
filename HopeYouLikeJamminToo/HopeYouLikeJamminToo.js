@@ -1,3 +1,5 @@
+var Tracks = new Meteor.Collection("tracks");
+
 if (Meteor.isClient) {
   Template.hello.greeting = function () {
     return "Welcome to HopeYouLikeJamminToo.";
@@ -11,32 +13,48 @@ if (Meteor.isClient) {
     }
   });
 
+  Template.sound.trackaroonies = function(){
+  	return Tracks.find();
+  }
+
+  var streaming;
+
   Template.sound.events({
     'click button': function() {
-      window.URL = window.URL || window.webkitURL;
-      navigator.getMedia = navigator.getUserMedia ||
-                            navigator.webkitGetUserMedia ||
-                            navigator.mozGetUserMedia ||
-                            navigator.msGetUserMedia;
-      navigator.getMedia(
-      {
-        video: false,
-        audio: true
-      },
 
-      function(localMediaStream){
-        var audio = document.querySelector('audio');
-        audio.src = window.URL.createObjectURL(localMediaStream);
-        audio.onloadedmetadata = function(e){
-          console.log(e);
-        };
-      },
-      function(err){
-        console.log("error: ", err);
-      });
+      if(streaming){
+      	streaming.stop();
+      	// streaming = undefined;
+      	console.log(streaming);
+      	streaming = undefined;
+      } else {
+
+      	window.URL = window.URL || window.webkitURL;
+	      navigator.getMedia = navigator.getUserMedia ||
+	                            navigator.webkitGetUserMedia ||
+	                            navigator.mozGetUserMedia ||
+	                            navigator.msGetUserMedia;
+	      navigator.getMedia(
+	        { audio: true },
+
+		    function(localMediaStream){
+		    	streaming = localMediaStream;
+		      var audio = document.querySelector('audio');
+		      localMediaStream.onended = function(){
+		      	console.log("onended called");
+		      	Tracks.insert(window.URL.createObjectURL(localMediaStream));
+		      	audio.src = window.URL.createObjectURL(localMediaStream);
+		      }
+		      audio.onloadedmetadata = function(e){
+		        //console.log(e);
+		      };
+		    },
+		    function(err){ console.log("error: ", err); }
+        );
+	    }
     }
   });
-}
+};
 
 if (Meteor.isServer) {
   Meteor.startup(function () {
