@@ -1,0 +1,20 @@
+<head>
+  <title>HopeYouLikeJamminToo</title>
+</head>
+
+<body>
+  {{> hello}}
+  {{> sound}}
+</body>
+
+<template name="hello">
+  <h1>Greetings Jammers!</h1>
+  {{greeting}}
+</template>
+
+<template name="sound">
+  <button id="record">record</button>
+  <audio controls autoplay></audio>
+  <ul id="recordingslist"></ul>
+  {{trackaroonies}}
+</template>
