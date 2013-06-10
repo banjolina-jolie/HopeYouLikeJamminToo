@@ -10,11 +10,11 @@
 <template name="hello">
   <h1>Greetings Jammers!</h1>
   {{greeting}}
-  <!-- <input type="button" value="Click" /> -->
 </template>
 
 <template name="sound">
   <button id="record">record</button>
-  <!-- <input type="file" accept="audio/*;capture=microphone"> -->
-  <audio controls></audio>
+  <audio controls autoplay></audio>
+  <ul id="recordingslist"></ul>
+  {{trackaroonies}}
 </template>
