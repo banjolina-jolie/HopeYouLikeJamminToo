@@ -21,13 +21,11 @@ if (Meteor.isClient) {
   var streaming;
   // var elRecordo;
 
-  // var insertIntoDatabase = function() {
-  //   recorder.exportWAV(function(blob) {
-  //     Tracks.insert({
-  //       blob: blob
-  //     });
-  //   });
-  // };
+  var insertIntoDatabase = function() {
+    recorder.exportWAV(function(blob) {
+      Tracks.insert(blob);
+    });
+  };
 
   var createDownloadLink = function() {
     recorder && recorder.exportWAV(function(blob) {

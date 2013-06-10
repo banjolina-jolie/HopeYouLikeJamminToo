@@ -14,7 +14,8 @@
 
 <template name="sound">
   <button id="record">record</button>
-  <audio controls autoplay></audio>
   <ul id="recordingslist"></ul>
-  {{trackaroonies}}
+  {{#each trackaroonies}}
+    <li>ok</li>
+  {{/each}}
 </template>
