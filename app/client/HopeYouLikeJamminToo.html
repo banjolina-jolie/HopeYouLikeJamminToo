@@ -8,14 +8,27 @@
 </body>
 
 <template name="hello">
-  <h1>Greetings Jammers!</h1>
-  {{greeting}}
+  <h1>Hope you like jammin too</h1>
+  <center>Put headphones in before clicking "allow" for microphone access</center>
+  <center>otherwise you're in for some bad feedback</center>
+  <center>:/</center>
+  <div>Name</div>
+  <div>
+    <input id="user_name" type="text">
+    <input class="submit_name" type="submit">
+    <span class="current_user">Jamming as: {{username}}</span>
+  </div>
 </template>
 
 <template name="sound">
   <button id="record">record</button>
   <ul id="recordingslist"></ul>
   {{#each trackaroonies}}
-    <li>ok</li>
+    {{> track}}
   {{/each}}
+  {{trackaroonies}}
+</template>
+
+<template name="track">
+  <audio src="{{blob}}"></audio>
 </template>

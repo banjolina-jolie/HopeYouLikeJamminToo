@@ -2,6 +2,7 @@
 
   var startUserMedia = function(stream) {
     var input = audio_context.createMediaStreamSource(stream);
+    console.log(stream);
     input.connect(audio_context.destination);
     window.recorder = new Recorder(input);
   };

@@ -2,8 +2,9 @@ var Tracks = new Meteor.Collection("tracks");
 
 
 if (Meteor.isClient) {
-  Template.hello.greeting = function () {
-    return "Welcome to HopeYouLikeJamminToo.";
+
+  Template.hello.username = function() {
+    return Session.get("name");
   };
 
   Template.hello.events({
